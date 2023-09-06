@@ -1,0 +1,43 @@
+
+.tree {
+  font-size: 25px;
+
+  .parent {
+    height: 35px;
+    overflow: hidden;
+    list-style-type: none;
+
+    &__arrow {
+      margin-right: 10px;
+      img {
+        height: 20px;
+      }
+    }
+
+    &__titleButton {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &__wrapper {
+      display: flex;
+    }
+
+    &__child {
+
+    }
+
+    &__icons {
+      display: flex;
+
+      img {
+        margin-left: 15px;
+      }
+
+    }
+
+  }
+
+
+}
