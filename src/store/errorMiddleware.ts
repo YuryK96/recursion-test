@@ -8,15 +8,22 @@ import {addErrorMessageAC} from './slices/treeSlice';
 
 export const catchErrorsMiddleware: Middleware =
     (api: MiddlewareAPI) => (next) => (action: PayloadAction<ErrActionType>) => {
+
         if (isRejectedWithValue(action)) {
-            next(addErrorMessageAC(action.payload));
+            if(action.payload.data.data.message) {
+                next(addErrorMessageAC(action.payload.data.data.message));
+            }else {
+                next(addErrorMessageAC('try again later'));
+            }
         }
         return next(action);
     };
 
 export type ErrActionType = {
-    status: number;
     data: {
-        message: string;
+        data: {
+            message: string;
+        }
+
     };
 };

@@ -1,15 +1,26 @@
 import {FC} from "react";
-import {iconAddItem, iconDelete, iconRename} from "assets/png/icons";
+import {ISelectedListItem} from "models/ITree";
+import {iconsArr} from "components/branch/icons/icons-data";
+import {BASE_TREE} from "const";
+import {EnumModalWindowType} from "enum/enum";
 
-export const Icons: FC<IconsType> = ({selectedListItem,itemId}) => {
-    return (<>  {selectedListItem === itemId && <div className='parent__icons'>
-        <button><img src={iconAddItem} alt='add new item in the list'/></button>
-        <button><img src={iconRename} alt='rename item in the list'/></button>
-        <button><img src={iconDelete} alt='delete item in the list'/></button>
+export const Icons: FC<IconsType> = ({selectedListItem, itemId, handleSelectListItem}) => {
+    return (<>  {selectedListItem?.id === itemId && <div className='parent__icons'>
+        {iconsArr.map((icon) => {
+            if (selectedListItem.name === BASE_TREE && icon.type !== EnumModalWindowType.creating) {
+                return null
+            }
+            return (
+                <button key={icon.alt}
+                        onClick={() => handleSelectListItem({...selectedListItem, modalWindowType: icon.type})}>
+                    <img src={icon.img} alt={icon.alt}/></button>
+            )
+        })}
     </div>}</>)
 }
 
 type IconsType = {
-    selectedListItem: number | null
+    selectedListItem: ISelectedListItem | null
     itemId: number
+    handleSelectListItem: (itemData: ISelectedListItem) => void
 }
